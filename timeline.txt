@@ -1,0 +1,7 @@
+Our timeline will be pretty brief since we started working on it late.
+
+FEB 2: Parts Shipped in
+FEB 16: Get LED screen to show something
+FEB 18: Get game logic working with LED screen
+FEB 19-20: Possibly add extra features
+FEB 21: Present
