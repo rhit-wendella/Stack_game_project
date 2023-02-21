@@ -104,7 +104,7 @@ def ISR_P9_23(channel):  # This is the ISR that's invoked when a pulse is detect
 #
     GPIO.remove_event_detect("P9_23")
     time.sleep(0.1)
-    GPIO.add_event_detect("P9_23", GPIO.RISING, callback=ISR_P9_23, bouncetime=bounce)
+    GPIO.add_event_detect("P9_23", GPIO.FALLING, callback=ISR_P9_23, bouncetime=bounce)
 
 #add event detect and event callback for button press
 GPIO.add_event_detect("P9_23", GPIO.FALLING)
@@ -141,6 +141,7 @@ def check_blocks(reverse):
     global saved_indices
     global speed
     global level
+    global change
     if reverse == 1: #determines which was the block was going
         if level != 0: #checks to make sure that its not the first level
             for l in reversed(range(len(size))):
@@ -171,7 +172,8 @@ def check_blocks(reverse):
                 del size[saved_indices[t]] #some try excepts for out of range index errors
             except:
                 try:
-                    del size[0]
+                    if size.count(1) == 1:
+                        del size[0]
                 except:
                     break
         level = level+1 #increases the level of the game
@@ -207,13 +209,13 @@ def check_blocks(reverse):
                 del size[saved_indices[t]] #some try excepts for out of range index errors
             except:
                 try:
-                    del size[0]
+                    if size.count(1) == 1:
+                        del size[0]
                 except:
                     break
-        saved_indices = []
         level = level+1 #increases the level of the game
         speed = speed - 0.005 #increases the speed of the game           
-
+    saved_indices = []
 while True: #Main Loop
     while gaming: #While loop that runs while the game is being played
         for i in range(xMax - len(size)+1): #loop that runs through the brick moving forth
